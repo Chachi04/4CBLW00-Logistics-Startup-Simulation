@@ -1,0 +1,168 @@
+Mon Jun  9 00:35:31 2025    hub_simulation.prof
+
+         184273617 function calls (184264004 primitive calls) in 199.974 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+   1939/1    0.373    0.000  199.988  199.988 {built-in method builtins.exec}
+        1    0.000    0.000  199.988  199.988 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/simpy/core.py:206(run)
+       23    0.000    0.000  199.988    8.695 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/simpy/core.py:181(step)
+       22    0.000    0.000  199.987    9.090 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/simpy/events.py:387(_resume)
+       22    0.000    0.000  199.987    9.090 {method 'send' of 'generator' objects}
+        9    0.001    0.000  197.020   21.891 /home/chachi/uni/files/year2/quartile4/4CBLW00_Urban_Mobility_Startups_For_Livable_Cities/simulation/hub.py:51(monitor_parcels)
+        6    0.005    0.001  197.019   32.836 /home/chachi/uni/files/year2/quartile4/4CBLW00_Urban_Mobility_Startups_For_Livable_Cities/simulation/hub.py:87(bulk_parcels)
+     1856    0.021    0.000  196.983    0.106 <class 'networkx.utils.decorators.argmap'> compilation 30:1(argmap_shortest_path_length_27)
+3712/1856    1.040    0.000  196.961    0.106 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/utils/backends.py:959(__call__)
+     1856    0.018    0.000  196.952    0.106 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/algorithms/shortest_paths/generic.py:191(shortest_path_length)
+     1856    0.017    0.000  196.933    0.106 <class 'networkx.utils.decorators.argmap'> compilation 34:1(argmap_dijkstra_path_length_31)
+     1856    0.023    0.000  195.887    0.106 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/algorithms/shortest_paths/weighted.py:175(dijkstra_path_length)
+     1855    0.949    0.001  195.838    0.106 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/algorithms/shortest_paths/weighted.py:770(_dijkstra)
+     1855  112.949    0.061  194.889    0.105 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/algorithms/shortest_paths/weighted.py:784(_dijkstra_multisource)
+   162786    0.039    0.000  182.184    0.001 {built-in method builtins.min}
+     1694    0.019    0.000  182.146    0.108 /home/chachi/uni/files/year2/quartile4/4CBLW00_Urban_Mobility_Startups_For_Livable_Cities/simulation/hub.py:104(<lambda>)
+ 47973669   16.084    0.000   55.362    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/algorithms/shortest_paths/weighted.py:78(<lambda>)
+ 47993065   39.286    0.000   39.286    0.000 {method 'get' of 'dict' objects}
+ 21715412   11.296    0.000   11.296    0.000 {built-in method _heapq.heappop}
+ 22055692    5.326    0.000    5.326    0.000 {built-in method _heapq.heappush}
+ 22055692    5.108    0.000    5.108    0.000 {built-in method builtins.next}
+ 19734384    4.852    0.000    4.852    0.000 {method 'items' of 'dict' objects}
+       13    0.001    0.000    2.967    0.228 /home/chachi/uni/files/year2/quartile4/4CBLW00_Urban_Mobility_Startups_For_Livable_Cities/simulation/main.py:50(source)
+       12    0.024    0.002    2.962    0.247 /home/chachi/uni/files/year2/quartile4/4CBLW00_Urban_Mobility_Startups_For_Livable_Cities/simulation/hub.py:36(add_parcels)
+     1936    0.011    0.000    2.806    0.001 /home/chachi/uni/files/year2/quartile4/4CBLW00_Urban_Mobility_Startups_For_Livable_Cities/simulation/parcel.py:5(__init__)
+     1936    0.003    0.000    2.506    0.001 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:892(__call__)
+     1936    0.007    0.000    2.503    0.001 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:872(freeze)
+     1936    0.026    0.000    2.495    0.001 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:499(__init__)
+     1936    0.055    0.000    2.463    0.001 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:1846(__init__)
+     1936    0.029    0.000    1.403    0.001 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:821(_construct_doc)
+     3872    0.482    0.000    1.285    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/_lib/doccer.py:29(docformat)
+     5808    0.074    0.000    0.512    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/_lib/_util.py:593(getfullargspec_no_self)
+     1936    0.016    0.000    0.456    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:1906(_attach_methods)
+5812/5810    0.007    0.000    0.401    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:3347(signature)
+5812/5810    0.009    0.000    0.394    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:3068(from_callable)
+     1936    0.017    0.000    0.394    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:726(_attach_argparser_methods)
+11620/5810    0.079    0.000    0.385    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:2479(_signature_from_callable)
+     1936    0.023    0.000    0.362    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:740(_construct_argparser)
+     3872    0.172    0.000    0.284    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/_lib/doccer.py:231(indentcount_lines)
+     1961    0.010    0.000    0.254    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:529(rvs)
+     1961    0.080    0.000    0.241    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:1059(rvs)
+     5810    0.071    0.000    0.212    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:2375(_signature_from_function)
+     1936    0.009    0.000    0.185    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:674(__init__)
+  1006942    0.182    0.000    0.182    0.000 {method 'append' of 'list' objects}
+   123904    0.152    0.000    0.152    0.000 {method 'splitlines' of 'str' objects}
+   123904    0.131    0.000    0.131    0.000 {method 'expandtabs' of 'str' objects}
+     1936    0.093    0.000    0.120    0.000 /home/chachi/uni/files/year2/quartile4/4CBLW00_Urban_Mobility_Startups_For_Livable_Cities/simulation/hub.py:45(choose_delivery_window)
+    11616    0.082    0.000    0.082    0.000 {method 'replace' of 'str' objects}
+    11620    0.054    0.000    0.067    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:3016(__init__)
+     3922    0.009    0.000    0.066    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:2589(all)
+     1961    0.023    0.000    0.063    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:911(_argcheck_rvs)
+   106486    0.061    0.000    0.061    0.000 {method 'join' of 'str' objects}
+     5808    0.024    0.000    0.060    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:2097(_signature_bound_method)
+      2/1    0.000    0.000    0.058    0.058 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/utils/decorators.py:787(func)
+     3922    0.013    0.000    0.057    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:89(_wrapreduction_any_all)
+     9693    0.029    0.000    0.053    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:2728(__init__)
+   344684    0.048    0.000    0.048    0.000 {built-in method builtins.len}
+     7744    0.038    0.000    0.046    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/numpy/lib/_function_base_impl.py:2435(__init__)
+   207152    0.043    0.000    0.043    0.000 {method 'lstrip' of 'str' objects}
+     3922    0.014    0.000    0.040    0.000 {method 'all' of 'numpy.generic' objects}
+     1936    0.011    0.000    0.039    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/uuid.py:661(uuid1)
+     1961    0.012    0.000    0.034    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/numpy/lib/_stride_tricks_impl.py:481(broadcast_arrays)
+     5810    0.012    0.000    0.031    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:3084(replace)
+     3922    0.004    0.000    0.026    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/numpy/_core/_methods.py:67(_all)
+     5810    0.016    0.000    0.026    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:176(get_annotations)
+     3884    0.010    0.000    0.023    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/random.py:345(choice)
+     1948    0.023    0.000    0.023    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_continuous_distns.py:10875(_rvs)
+     3922    0.022    0.000    0.022    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+    11629    0.014    0.000    0.021    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/enum.py:695(__call__)
+     5810    0.013    0.000    0.019    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:764(unwrap)
+    79439    0.018    0.000    0.018    0.000 {built-in method builtins.isinstance}
+     1936    0.014    0.000    0.018    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/uuid.py:142(__init__)
+     1855    0.013    0.000    0.017    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/algorithms/shortest_paths/weighted.py:41(_weight_function)
+    46470    0.014    0.000    0.014    0.000 {method 'values' of 'mappingproxy' objects}
+     1961    0.012    0.000    0.012    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/numpy/lib/_stride_tricks_impl.py:413(_broadcast_shape)
+     3884    0.008    0.000    0.011    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/random.py:245(_randbelow_with_getrandbits)
+    15499    0.008    0.000    0.011    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:3063(<genexpr>)
+     3922    0.010    0.000    0.010    0.000 {built-in method numpy.array}
+     1936    0.009    0.000    0.009    0.000 {built-in method numpy.arange}
+    27029    0.009    0.000    0.009    0.000 {built-in method builtins.callable}
+    11620    0.007    0.000    0.009    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:386(isfunction)
+     1856    0.008    0.000    0.008    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/classes/graph.py:462(__contains__)
+    23242    0.008    0.000    0.008    0.000 {built-in method builtins.hasattr}
+    21352    0.007    0.000    0.007    0.000 {built-in method builtins.getattr}
+    11629    0.007    0.000    0.007    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/enum.py:1154(__new__)
+     5808    0.006    0.000    0.007    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/_lib/_util.py:630(<genexpr>)
+    46470    0.006    0.000    0.006    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:3076(parameters)
+    38755    0.006    0.000    0.006    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:2793(kind)
+     1936    0.003    0.000    0.005    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:1928(_updated_ctor_param)
+     5833    0.005    0.000    0.005    0.000 {method 'copy' of 'dict' objects}
+     9693    0.004    0.000    0.004    0.000 {method 'isidentifier' of 'str' objects}
+    17483    0.004    0.000    0.004    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:2781(name)
+     5810    0.003    0.000    0.003    0.000 {built-in method __new__ of type object at 0x58eac5606b80}
+     1936    0.003    0.000    0.003    0.000 {built-in method _uuid.generate_time_safe}
+     9693    0.003    0.000    0.003    0.000 {method '__contains__' of 'frozenset' objects}
+     1936    0.003    0.000    0.003    0.000 {built-in method math.ceil}
+     6531    0.002    0.000    0.002    0.000 {method 'getrandbits' of '_random.Random' objects}
+     1936    0.002    0.000    0.002    0.000 {built-in method builtins.max}
+     5808    0.002    0.000    0.002    0.000 {built-in method builtins.setattr}
+     5824    0.002    0.000    0.002    0.000 {built-in method builtins.id}
+     1965    0.002    0.000    0.002    0.000 {method 'update' of 'dict' objects}
+     3928    0.002    0.000    0.002    0.000 {method 'pop' of 'dict' objects}
+     3922    0.002    0.000    0.002    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:925(squeeze_left)
+     5810    0.002    0.000    0.002    0.000 {built-in method sys.getrecursionlimit}
+     3884    0.002    0.000    0.002    0.000 {method 'bit_length' of 'int' objects}
+     1936    0.002    0.000    0.002    0.000 {method 'count' of 'list' objects}
+     1936    0.001    0.000    0.001    0.000 {built-in method from_bytes}
+     1936    0.001    0.000    0.001    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/_lib/_util.py:461(check_random_state)
+     7753    0.001    0.000    0.001    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:2785(default)
+     3922    0.001    0.000    0.001    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:2584(_all_dispatcher)
+     1961    0.001    0.000    0.001    0.000 {built-in method builtins.all}
+     1961    0.001    0.000    0.001    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:985(_argcheck)
+        2    0.000    0.000    0.001    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/utils/decorators.py:719(_lazy_compile)
+     3917    0.001    0.000    0.001    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/simpy/core.py:115(now)
+        2    0.000    0.000    0.001    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/utils/decorators.py:873(compile)
+     1855    0.001    0.000    0.001    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/classes/digraph.py:1246(is_multigraph)
+     1936    0.001    0.000    0.001    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:830(<genexpr>)
+     1936    0.001    0.000    0.001    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_distn_infrastructure.py:997(_get_support)
+       12    0.001    0.000    0.001    0.000 {built-in method builtins.print}
+     3872    0.001    0.000    0.001    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/inspect.py:2789(annotation)
+        2    0.000    0.000    0.001    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/utils/decorators.py:921(assemble)
+     1961    0.001    0.000    0.001    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/numpy/lib/_stride_tricks_impl.py:477(_broadcast_arrays_dispatcher)
+        2    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/utils/decorators.py:1063(signature)
+      162    0.000    0.000    0.000    0.000 {method 'remove' of 'list' objects}
+       22    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/simpy/events.py:229(__init__)
+        2    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/utils/backends.py:922(__signature__)
+       23    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/simpy/core.py:164(schedule)
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.compile}
+       13    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/scipy/stats/_continuous_distns.py:2077(_rvs)
+      750    0.000    0.000    0.000    0.000 /home/chachi/uni/files/year2/quartile4/4CBLW00_Urban_Mobility_Startups_For_Livable_Cities/simulation/hub.py:95(<lambda>)
+        6    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/utils/decorators.py:853(_name)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 <string>:5(_parse_args_rvs)
+        6    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/re/__init__.py:183(sub)
+        8    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/utils/decorators.py:1199(_indent)
+       12    0.000    0.000    0.000    0.000 /home/chachi/uni/files/year2/quartile4/4CBLW00_Urban_Mobility_Startups_For_Livable_Cities/simulation/main.py:23(lambda_t)
+        6    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/re/__init__.py:330(_compile)
+        1    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/simpy/core.py:79(callback)
+     12/8    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/utils/decorators.py:1169(_flatten)
+        6    0.000    0.000    0.000    0.000 {method 'copy' of 'list' objects}
+       12    0.000    0.000    0.000    0.000 {method 'random' of '_random.Random' objects}
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.any}
+        6    0.000    0.000    0.000    0.000 {method 'sub' of 're.Pattern' objects}
+        8    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/utils/decorators.py:830(_count)
+       11    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/utils/backends.py:931(<genexpr>)
+        6    0.000    0.000    0.000    0.000 {method 'clear' of 'list' objects}
+        2    0.000    0.000    0.000    0.000 {method 'extend' of 'list' objects}
+        2    0.000    0.000    0.000    0.000 <string>:1(<lambda>)
+        2    0.000    0.000    0.000    0.000 {method 'format' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/simpy/events.py:145(value)
+        1    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/simpy/events.py:113(ok)
+        4    0.000    0.000    0.000    0.000 {method 'add' of 'set' objects}
+        1    0.000    0.000    0.000    0.000 <string>:1(<module>)
+        1    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/simpy/events.py:86(__init__)
+        2    0.000    0.000    0.000    0.000 /home/chachi/miniforge3/envs/simulation/lib/python3.13/site-packages/networkx/utils/decorators.py:1057(<genexpr>)
+        2    0.000    0.000    0.000    0.000 {method 'values' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 <class 'networkx.utils.decorators.argmap'> compilation 30:1(<module>)
+        1    0.000    0.000    0.000    0.000 <class 'networkx.utils.decorators.argmap'> compilation 34:1(<module>)
+        1    0.000    0.000    0.000    0.000 <string>:2(_parse_args)
+
+
