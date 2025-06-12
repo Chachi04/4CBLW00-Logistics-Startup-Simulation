@@ -28,4 +28,17 @@ class Results:
         Log the route taken by a bike.
         """
         Results.bike_routes.append(route)
+    
+    @staticmethod
+    def print():
+        """
+        Print the results of the simulation.
+        """
+        print("Delivery Times:")
+        for i in range(len(Results.delivery_times["time"])):
+            print(f"Parcel {Results.delivery_times['parcel_id'][i]} delivered at {Results.delivery_times['time'][i]} with delay {Results.delivery_times['delay'][i]} minutes.")
+        
+        print("\nBike Routes:")
+        for route in Results.bike_routes:
+            print(route)
 
