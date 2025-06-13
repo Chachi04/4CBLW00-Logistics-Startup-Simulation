@@ -9,13 +9,18 @@ class Results:
         "delivery timeslot": []
     }
 
+    dispatches = {
+        "time": [],
+        "number of parcels": []
+    }
+
     bike_routes = [
 
     ]
     @staticmethod
     def register_delivery(time, parcel):
         """
-        Log the delivery of a parcel.
+        Register the delivery of a parcel.
         """
         Results.delivery_times["time"].append(time)
         Results.delivery_times["parcel_id"].append(parcel.id)
@@ -23,9 +28,17 @@ class Results:
         Results.delivery_times["delay"].append(max(0, time - (parcel.delivery_window.total_seconds() / 60)))  # Delay in minutes
 
     @staticmethod
+    def register_dispatch(time, n):
+        """
+        Register the number of parcels dispatched at a given time.
+        """
+        Results.dispatches["time"].append(time)
+        Results.dispatches["number of parcels"].append(n)
+
+    @staticmethod
     def register_bike_route(route):
         """
-        Log the route taken by a bike.
+        Register the route taken by a bike.
         """
         Results.bike_routes.append(route)
 

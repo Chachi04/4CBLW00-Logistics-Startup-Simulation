@@ -8,6 +8,7 @@ import math
 
 from parcel import Parcel
 from cargobike import CargoBike
+from res import Results
 
 LOGGING = False
 
@@ -72,6 +73,7 @@ class LogisticsHub:
                         if LOGGING:
                             print(f"Dispatching {bulks} bulks at Hub {self.id} at {self.env.now}")
                         CargoBike(self.env, self.location, bulk, self.city_network)
+                        Results.register_dispatch(self.env.now, len(bulk))
 
                 # self.available_bikes -= 1
                 # self.available_bikes += 1
