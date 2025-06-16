@@ -11,7 +11,7 @@ from res import Results
 LOGGING = False
 
 class LogisticsHub:
-    def __init__(self, env, hub_id, location_node, city_network: nx.DiGraph, serviced_nodes: np.ndarray, distance_matrix: np.ndarray):
+    def __init__(self, env, hub_id, location_node, city_network: nx.DiGraph, serviced_nodes: np.ndarray, distance_matrix: np.ndarray, results: Results):
         self.env = env
         self.id = hub_id
         self.location = location_node
@@ -22,7 +22,7 @@ class LogisticsHub:
         self.vehicle_pool = simpy.Resource(env, capacity=5)
         self.starting_time = 9 # 9 AM
         self.closing_time = 19 # 7 PM
-        self.available_bikes = 10
+        self.available_bikes = 7
         self.bikes_resource = simpy.Resource(self.env, capacity=self.available_bikes)
         self.batteries = [Battery() for _ in range(5)]
         self.charging_stations = simpy.Resource(self.env, capacity=2)
@@ -32,6 +32,8 @@ class LogisticsHub:
         self.timeslots = [timedelta(hours=float(key)) for key in np.arange(9, 19, 0.5)] + [timedelta(days=1, hours=float(key)) for key in np.arange(9, 19, 0.5)]
 
         self._node_id_to_matrix_idx = {node_id: i for i, node_id in enumerate(self.serviced_nodes)}
+
+        self.results = results
 
     # def _get_reachable_nodes(self):
     #     travel_times = nx.single_source_dijkstra_path_length(self.city_network, self.location, cutoff=900, weight='travel_time')
@@ -74,8 +76,8 @@ class LogisticsHub:
                         yield req
                         if LOGGING:
                             print(f"Hub {self.id}: Dispatching bike with {len(bulk)} parcels at {self.env.now:.2f} minutes.")
-                        CargoBike(self.env, self.location, bulk, self.city_network, self.serviced_nodes, self.distance_matrix)
-                        Results.register_dispatch(self.env.now, len(bulk))
+                        CargoBike(self.env, self.location, bulk, self.city_network, self.serviced_nodes, self.distance_matrix, self.results)
+                        self.results.register_dispatch(self.env.now, len(bulk))
 
                 # self.available_bikes -= 1
                 # self.available_bikes += 1

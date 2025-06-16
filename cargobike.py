@@ -10,7 +10,7 @@ import numpy as np
 LOGGING = False
 
 class CargoBike:
-    def __init__(self, env, source, parcels: list, city_network, serviced_nodes: np.ndarray, distance_matrix: np.ndarray):
+    def __init__(self, env, source, parcels: list, city_network, serviced_nodes: np.ndarray, distance_matrix: np.ndarray, results: Results):
         self.env = env
         self.source = source
         self.load_left = 200
@@ -25,6 +25,7 @@ class CargoBike:
         self.battery_capacity = 100
         self.parcels = parcels
         self.env.process(self.deliver())
+        self.results = results
 
     def construct_route(self):
         """
@@ -76,7 +77,7 @@ class CargoBike:
             travel_time = self.sampleLinkTravelTime(route[i], route[i+1], self.max_speed)
             yield self.env.timeout(travel_time)
             if(len(ordered_parcels) > 0):
-                Results.register_delivery(
+                self.results.register_delivery(
                     self.env.now,
                     ordered_parcels.pop(0),
                     # f"Delivering parcel {parcel.id} from {self.source} at {absolute_time(self.env.now)}. Time taken: {time_delivered:.2f} minutes."
@@ -85,7 +86,7 @@ class CargoBike:
             if LOGGING:
                 print(f"Arrived at {self.current_location} at time {self.env.now}")
         
-        Results.register_bike_route(route)
+        self.results.register_bike_route(route)
         
         # while self.parcels:
         #     parcel_to_deliver = self.parcels.pop(0)
