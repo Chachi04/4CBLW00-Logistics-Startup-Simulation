@@ -21,6 +21,8 @@ lb, ub = 100, 200
 loc, scale = lb, ub - lb
 dist_packages = stats.uniform(loc, scale)
 
+TIMESLOT_DURATION = 60 # in minutes!
+
 def lambda_t(t):
     """
     Returns the lambda value for the given time t.
@@ -47,7 +49,6 @@ HUB_CONFIG = {
     "location_node": 12102009949,
 }
 
-
 start_time = time.time()
 try:
     HUB_CONFIG["serviced_nodes"] = np.load("utils/nodesA.npy")
@@ -70,7 +71,7 @@ def run_single_sim(sim_id: int):
     current_results = Results()
     hub = LogisticsHub(env, HUB_CONFIG['id'], HUB_CONFIG["location_node"], CITY_NETWORK,
                        HUB_CONFIG["serviced_nodes"], HUB_CONFIG["distance_matrix"],
-                       current_results)
+                       TIMESLOT_DURATION, current_results)
     def source(env, hub):
         # print(hub)
         while True:
@@ -94,7 +95,7 @@ def run_single_sim(sim_id: int):
     return current_results
 
 if __name__ == "__main__":
-    NUM_SIMULATIONS = 1
+    NUM_SIMULATIONS = 10
     all_results = []
     threads = []
 
@@ -126,13 +127,14 @@ if __name__ == "__main__":
         # Now plot the aggregated results
         if aggregated_deliveries["delay"]:
             fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(10, 8))
-            n, bins, _ = ax.hist(aggregated_deliveries["delay"], bins=50, edgecolor='black') # Increased bins for more data
+            n, bins, _ = ax.hist(aggregated_deliveries["delay"], bins=50, edgecolor='black', density=True)
             ax.set_title(f"Aggregated Delivery Delays ({NUM_SIMULATIONS} runs)")
             ax.set_xlabel("Delay (minutes)")
             ax.set_ylabel("Frequency")
             
+            print(n)
             for i in range(len(n)):
-                ax.text(bins[i] + (bins[1]-bins[0])/2, n[i], str(int(n[i])), ha='center', va='bottom')
+                ax.text(bins[i] + (bins[1]-bins[0])/2, n[i], str(round(n[i], 4)), ha='center', va='bottom', rotation=90)
 
             plt.show()
         else:

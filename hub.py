@@ -11,14 +11,16 @@ from res import Results
 LOGGING = False
 
 class LogisticsHub:
-    def __init__(self, env, hub_id, location_node, city_network: nx.DiGraph, serviced_nodes: np.ndarray, distance_matrix: np.ndarray, results_collector: Results):
+    def __init__(self, env, hub_id, location_node, city_network: nx.DiGraph, serviced_nodes: np.ndarray, distance_matrix: np.ndarray, timeslot_duration: int, results_collector: Results):
         self.env = env
         self.id = hub_id
         self.location = location_node
         self.city_network = city_network
         self.serviced_nodes = serviced_nodes
         self.distance_matrix = distance_matrix
-        self.parcel_queue = {str(timedelta(hours=float(key))): [] for key in np.arange(9, 19, 5)}
+        self.timeslot_duration = timeslot_duration  # Duration of each timeslot in minutes
+        self.timeslot_duration_hours = round(timeslot_duration / 60, 2)
+        self.parcel_queue = {str(timedelta(hours=float(key))): [] for key in np.arange(9, 19, self.timeslot_duration_hours)}
         self.vehicle_pool = simpy.Resource(env, capacity=5)
         self.starting_time = 9 # 9 AM
         self.closing_time = 19 # 7 PM
@@ -29,7 +31,7 @@ class LogisticsHub:
         self.env.process(self.monitor_parcels())
         # self.serviced_nodes = self._get_reachable_nodes()
         self.dummy_hub_parcel = Parcel(destination=self.location, delivery_window=timedelta(hours=0))  # Dummy parcel for bulk delivery
-        self.timeslots = [timedelta(hours=float(key)) for key in np.arange(9, 19, 0.5)] + [timedelta(days=1, hours=float(key)) for key in np.arange(9, 19, 0.5)]
+        self.timeslots = [timedelta(hours=float(key)) for key in np.arange(9, 19, self.timeslot_duration_hours)] + [timedelta(days=1, hours=float(key)) for key in np.arange(9, 19, self.timeslot_duration_hours)]
 
         self.results_collector = results_collector
         self._node_id_to_matrix_idx = {node_id: i for i, node_id in enumerate(self.serviced_nodes)}
@@ -54,20 +56,28 @@ class LogisticsHub:
     def available_timeslots(self, current_time):
         i = 0
         while True:
-            if current_time < 9 * 60 + i * 30:
+            if current_time < 9 * 60 + i * self.timeslot_duration:
                 return self.timeslots[i:]  # Return all slots from the first available one
             i+=1
+            if i >= len(self.timeslots):
+                return []
 
     def monitor_parcels(self):
         yield self.env.timeout(self.starting_time * 60) # Wait until 9 AM
         while True:
             if self.env.now >= self.closing_time * 60:
                 break
-            parcels = self.parcel_queue[str(timedelta(minutes=self.env.now))].copy()
-            self.parcel_queue[str(timedelta(minutes=self.env.now))] = []
-            # print(len(parcels))
+            
+            current_slot_key = str(timedelta(minutes=self.env.now))
+            parcels = self.parcel_queue.get(current_slot_key, []).copy()
+            
+            if current_slot_key in self.parcel_queue:
+                self.parcel_queue[current_slot_key] = []
+            
+            if LOGGING and parcels:
+                print(f"Hub {self.id}: Attempting to dispatch for slot {current_slot_key} at {self.env.now:.2f}, found {len(parcels)} parcels.")
+
             bulks = self.bulk_parcels(parcels)
-            # print(len(bulks))
 
             for bulk in bulks:
                 if bulk:
@@ -80,7 +90,7 @@ class LogisticsHub:
                 # self.available_bikes -= 1
                 # self.available_bikes += 1
 
-            yield self.env.timeout(30) # Check every 30 minutes
+            yield self.env.timeout(self.timeslot_duration)
 
     def _cluster_destinations_kmedoids(self, dest_nodes: list, num_clusters: int, max_iter=50) -> list[list[int]]:
         """

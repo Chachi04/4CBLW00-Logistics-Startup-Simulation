@@ -45,7 +45,7 @@ class Results:
         Returns a tuple: (aggregated_delivery_times_dict, aggregated_bike_routes_list)
         """
         all_delivery_times = {
-            "time": [], "parcel_id": [], "delay": [], "delivery timeslot": []
+            "time": [], "parcel_id": [], "delay": [], "delivery_timeslot": []
         }
         all_bike_routes = []
 
