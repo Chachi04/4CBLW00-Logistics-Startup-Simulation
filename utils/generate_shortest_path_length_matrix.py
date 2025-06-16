@@ -27,6 +27,8 @@ for source in subgraph.nodes():
         dist_matrix[node_index[source]][node_index[target]] = d
 
 # Save the distance matrix to a file
+print(np.array(nodes))
+print(dist_matrix)
 np.save("nodesA.npy", np.array(nodes))
 np.save("distance_matrixA.npy", dist_matrix)
 
