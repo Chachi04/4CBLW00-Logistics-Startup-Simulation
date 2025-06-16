@@ -6,18 +6,19 @@ import random
 
 from parcel import Parcel
 from cargobike import CargoBike
+from res import Results
 
 LOGGING = False
 
 class LogisticsHub:
-    def __init__(self, env, hub_id, location_node, city_network: nx.DiGraph, serviced_nodes: np.ndarray, distance_matrix: np.ndarray):
+    def __init__(self, env, hub_id, location_node, city_network: nx.DiGraph, serviced_nodes: np.ndarray, distance_matrix: np.ndarray, results_collector: Results):
         self.env = env
         self.id = hub_id
         self.location = location_node
         self.city_network = city_network
         self.serviced_nodes = serviced_nodes
         self.distance_matrix = distance_matrix
-        self.parcel_queue = {str(timedelta(hours=float(key))): [] for key in np.arange(9, 19, 0.5)}
+        self.parcel_queue = {str(timedelta(hours=float(key))): [] for key in np.arange(9, 19, 5)}
         self.vehicle_pool = simpy.Resource(env, capacity=5)
         self.starting_time = 9 # 9 AM
         self.closing_time = 19 # 7 PM
@@ -30,6 +31,7 @@ class LogisticsHub:
         self.dummy_hub_parcel = Parcel(destination=self.location, delivery_window=timedelta(hours=0))  # Dummy parcel for bulk delivery
         self.timeslots = [timedelta(hours=float(key)) for key in np.arange(9, 19, 0.5)] + [timedelta(days=1, hours=float(key)) for key in np.arange(9, 19, 0.5)]
 
+        self.results_collector = results_collector
         self._node_id_to_matrix_idx = {node_id: i for i, node_id in enumerate(self.serviced_nodes)}
 
     # def _get_reachable_nodes(self):
@@ -73,7 +75,7 @@ class LogisticsHub:
                         yield req
                         if LOGGING:
                             print(f"Hub {self.id}: Dispatching bike with {len(bulk)} parcels at {self.env.now:.2f} minutes.")
-                        CargoBike(self.env, self.location, bulk, self.city_network, self.serviced_nodes, self.distance_matrix)
+                        CargoBike(self.env, self.location, bulk, self.city_network, self.serviced_nodes, self.distance_matrix, self.results_collector)
 
                 # self.available_bikes -= 1
                 # self.available_bikes += 1

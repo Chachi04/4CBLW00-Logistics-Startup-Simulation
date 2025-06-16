@@ -10,7 +10,7 @@ import numpy as np
 LOGGING = False
 
 class CargoBike:
-    def __init__(self, env, source, parcels: list, city_network, serviced_nodes: np.ndarray, distance_matrix: np.ndarray):
+    def __init__(self, env, source, parcels: list, city_network, serviced_nodes: np.ndarray, distance_matrix: np.ndarray, results_collector: Results):
         self.env = env
         self.source = source
         self.load_left = 200
@@ -21,6 +21,7 @@ class CargoBike:
         self.nodes = serviced_nodes
         self.dist_matrix = distance_matrix
         self.current_location = source
+        self.results_collector = results_collector
 
         self.battery_capacity = 100
         self.parcels = parcels
@@ -59,7 +60,17 @@ class CargoBike:
         Check battery
         Dispatch
         """
+        if not self.parcels:
+            if LOGGING:
+                print(f"No parcels assigned to this bike!")
+            return
+        
         route = self.construct_route()
+        if not route or len(route) < 2:
+            if LOGGING:
+                print(f"Route is empty! No delivery possible.")
+            return
+        
         # Create a list of parcels in the order they will be delivered
         ordered_parcels = []
         for node in route[1:-1]:
@@ -67,25 +78,24 @@ class CargoBike:
                 if parcel.destination == node:
                     ordered_parcels.append(parcel)
                     break
+        self.parcels = ordered_parcels  # Update the bike's parcels to the ordered list
                 
         # print(route, len(self.parcels), len(ordered_parcels))
         
         for i in range(len(route) - 1):
+            start_node = route[i]
+            end_node = route[i+1]
             if LOGGING:
-                print(f"Traveling from {route[i]} to {route[i+1]} at time {self.env.now}")
-            travel_time = self.sampleLinkTravelTime(route[i], route[i+1], self.max_speed)
+                print(f"Traveling from {start_node} to {end_node} at time {self.env.now}")
+            travel_time = self.sampleLinkTravelTime(start_node, end_node, self.max_speed)
             yield self.env.timeout(travel_time)
-            if(len(ordered_parcels) > 0):
-                Results.register_delivery(
-                    self.env.now,
-                    ordered_parcels.pop(0),
-                    # f"Delivering parcel {parcel.id} from {self.source} at {absolute_time(self.env.now)}. Time taken: {time_delivered:.2f} minutes."
-                )
-            self.current_location = route[i+1]
-            if LOGGING:
-                print(f"Arrived at {self.current_location} at time {self.env.now}")
+            self.current_location = end_node
+            
+            if(self.current_location != self.source):
+                if(len(self.parcels) > 0):
+                    self.results_collector.register_delivery(self.env.now, self.parcels.pop(0))
         
-        Results.register_bike_route(route)
+        self.results_collector.register_bike_route(route)
         
         # while self.parcels:
         #     parcel_to_deliver = self.parcels.pop(0)
