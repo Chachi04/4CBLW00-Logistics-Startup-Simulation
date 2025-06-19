@@ -3,14 +3,13 @@ import osmnx as ox
 import numpy as np
 import scipy.stats as stats
 import matplotlib.pyplot as plt
+from statsmodels.stats.weightstats import DescrStatsW
 
 import random
 
 from hub import LogisticsHub
 from res import Results
 from multiprocessing import Pool
-
-import cProfile
 
 LOGGING = False
 
@@ -33,9 +32,12 @@ def simulation_run(seed):
     max_lambda = max(lambdas) / 60 / 3
     dist_arrival = stats.expon(scale=1/max_lambda)
 
-    lb, ub = 100, 200
-    loc, scale = lb, ub - lb
-    dist_packages = stats.uniform(loc, scale)
+    # lb, ub = 100, 200
+    # loc, scale = lb, ub - lb
+    # dist_packages = stats.uniform(loc, scale)
+
+    mu, sigma = 300, 150
+    dist_packages = stats.norm(mu, sigma)
 
     def lambda_t(t):
         """
@@ -88,8 +90,27 @@ def simulation_run(seed):
 
     return results
 if __name__ == "__main__":
-    with Pool(processes=4) as pool:
-        num_runs = 100
+    # res = simulation_run(0)
+    #
+    # fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(10, 8))
+    #
+    # # ax[0].boxplot(Results.delivery_times["delay"])
+    # ax[0].hist(res.delivery_times['delay'], bins=30, edgecolor='black', label=f"Delivery delays (n = {1})", density=True)
+    # ax[0].set_title("Delivery Delays")
+    # ax[0].set_xlabel("Delay (minutes)")
+    # ax[0].set_ylabel("Frequency")
+    # ax[0].legend(loc='upper right')
+    #
+    # # all_dispatches = [num for res in all_results for num in res.dispatches["number of parcels"]]
+    # ax[1].hist(res.dispatches['number of parcels'], bins=30, edgecolor='black', density=True)
+    # ax[1].set_title("Number of Parcels Dispatched")
+    # ax[1].set_xlabel("Number of Parcels")
+    # ax[1].set_ylabel("Frequency")
+    #
+    # plt.show()
+
+    with Pool() as pool:
+        num_runs = 10
         seeds = [random.SystemRandom().randint(0, 2**32-1) for _ in range(num_runs)]
         all_results = pool.map(simulation_run, seeds)
 
@@ -112,10 +133,21 @@ if __name__ == "__main__":
     ax[1].set_xlabel("Number of Parcels")
     ax[1].set_ylabel("Frequency")
 
-
-
-
     plt.show()
+
+    mean_delivery_delay = np.mean(all_delays)
+    std = np.std(all_delays)
+    ci = DescrStatsW(all_delays).tconfint_mean(alpha=0.05)
+    print(f"Mean delivery delay: {mean_delivery_delay:.2f} minutes")
+    print(f"Standard deviation: {std:.2f} minutes")
+    print(f"95% Confidence interval: {ci}")
+
+    mean_dispatches_parcel_count = np.mean(all_dispatches)
+    std_dispatches = np.std(all_dispatches)
+    ci_dispatches = DescrStatsW(all_dispatches).tconfint_mean(alpha=0.05)
+    print(f"Mean dispatches parcel count: {mean_dispatches_parcel_count:.2f}")
+    print(f"Standard deviation: {std_dispatches:.2f}")
+    print(f"95% Confidence interval for dispatches: {ci_dispatches}")
 
     # import cProfile
     # import pstats
