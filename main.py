@@ -100,9 +100,9 @@ if __name__ == "__main__":
     fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(10, 8))
 
     # ax[0].boxplot(Results.delivery_times["delay"])
-    ax[0].hist(all_delays, bins=30, edgecolor='black', label=f"Delivery delays (n = {mean_num_deliveries})", density=True)
-    ax[0].set_title("Delivery Delays")
-    ax[0].set_xlabel("Delay (minutes)")
+    ax[0].hist(all_delays, bins=30, edgecolor='black', label=f"Delivery times (n = {mean_num_deliveries})", density=True)
+    ax[0].set_title("Time Until Delivery")
+    ax[0].set_xlabel("Time (minutes)")
     ax[0].set_ylabel("Frequency")
     ax[0].legend(loc='upper right')
 
@@ -111,9 +111,6 @@ if __name__ == "__main__":
     ax[1].set_title("Number of Parcels Dispatched")
     ax[1].set_xlabel("Number of Parcels")
     ax[1].set_ylabel("Frequency")
-
-
-
 
     plt.show()
 

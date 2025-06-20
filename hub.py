@@ -67,7 +67,8 @@ class LogisticsHub:
             parcels = self.parcel_queue[str(timedelta(minutes=self.env.now))].copy()
             self.parcel_queue[str(timedelta(minutes=self.env.now))] = []
             # print(len(parcels))
-            bulks = self.bulk_parcels(parcels)
+            available_bikes = self.available_bikes - self.bikes_resource.count # Count active bikes
+            bulks = self.bulk_parcels(parcels, available_bikes)
             # print(len(bulks))
 
             for bulk in bulks:
@@ -171,23 +172,23 @@ class LogisticsHub:
             
         return final_cluster_assignments
 
-    def bulk_parcels(self, parcels: list[Parcel]) -> list[list[Parcel]]:
+    def bulk_parcels(self, parcels: list[Parcel], available_bikes: int) -> list[list[Parcel]]:
         """
         Clusters parcels into bulks for available bikes using K-medoids.
         """
-        if not parcels or self.available_bikes <= 0:
-            return [[] for _ in range(self.available_bikes if self.available_bikes > 0 else 0)]
+        if not parcels:
+            return [[] for _ in range(available_bikes)]
 
         dest_node_ids_to_cluster = set([p.destination for p in parcels])  # Unique destination node IDs
         
         if not dest_node_ids_to_cluster:
-            return [[] for _ in range(self.available_bikes)]
+            return [[] for _ in range(available_bikes)]
 
         # 2. Perform K-medoids clustering on the unique destination node IDs
         # This helper returns list of lists of node IDs
         clustered_node_id_groups = self._cluster_destinations_kmedoids(
             list(dest_node_ids_to_cluster), 
-            min(self.available_bikes, len(dest_node_ids_to_cluster)) # Use the calculated target
+            min(available_bikes, len(dest_node_ids_to_cluster)) # Use the calculated target
         ) # max_iter default is 50
 
         # 3. Map clustered node IDs back to Parcel objects
